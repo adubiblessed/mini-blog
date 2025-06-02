@@ -1,0 +1,19 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="max-w-md mx-auto mt-16 p-8 bg-white rounded-lg shadow">
+  <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Register</h2>
+
+  <form method="post" action="{% url 'register' %}" class="space-y-6">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+      Register
+    </button>
+  </form>
+
+  <p class="mt-6 text-center text-gray-600">
+    Already have an account? 
+    <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login here</a>.
+  </p>
+</div>
+

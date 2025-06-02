@@ -1,0 +1,39 @@
+{% extends "blogapp/base.html" %}
+{% load static %}
+
+
+{% block title %}Profile of {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white shadow rounded-md mt-10 space-y-4">
+    <h1 class="text-2xl font-bold text-gray-800">{{ user.username }}'s Profile</h1>
+    <div class="mt-4">
+        {% if user and user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="w-36 h-36 object-cover rounded-full border">
+        {% else %}
+            <img src="{% static 'images/profile-image.png' %}" alt="Default Profile Picture" class="w-36 h-36 object-cover rounded-full border">
+        {% endif %}
+    </div>
+
+
+    <p class="text-gray-600"><span class="font-semibold">Email:</span> {{ user.email }}</p>
+
+    {% if user %}
+        <p class="text-gray-600"><span class="font-semibold">Bio:</span> {{ user.bio }}</p>
+    {% else %}
+        <p class="text-red-500">No profile information available.</p>
+    {% endif %}
+
+
+    <div class="space-y-2 mt-6">
+        <a href="{% url 'edit_profile' username=user.username %}" class="text-blue-600 hover:underline">Edit Profile</a>
+        <p><a href="{% url 'home' %}" class="text-blue-600 hover:underline">Go back home</a></p>
+
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}" class="text-red-600 hover:underline">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}" class="text-green-600 hover:underline">Login</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="bg-gray-800 p-2">
+        <div class="container mx-auto justify-between flex items-center">
+            <ul class="flex space-x-4 text-white">
+                <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+                <li><a href="{% url 'create_blog' %}" class="hover:underline">Create Blog</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' username=user.username %}" class="hover:underline">Profile</a></li>
+                    <li><a href="{% url 'logout' %}" class="hover:underline">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="hover:underline">Login</a></li>
+                    <li><a href="{% url 'register' %}" class="hover:underline">Register</a></li>
+                {% endif %}
+
+            </ul>
+            <div>
+                {% if user and user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="w-10 h-10 object-cover rounded-full border">
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="mt-10 mx-10">
+        {% block content%}
+        {% endblock %}
+    </div>
+</body>
+</html>
